@@ -44,6 +44,9 @@ h2 {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+
   padding: 30px;
   min-width: 300px;
 }
@@ -55,4 +58,39 @@ h2 {
 .card:hover {
   box-shadow: 2px 2px 15px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow .5s ease;
+}
+
+input, textarea {
+  outline-color: #535EAA;
+  border: none;
+  padding: 10px;
+}
+
+input.input-title { /* user's input for name of new blog post */
+  color: #535EAA;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+textarea.input-content { /* user's input for blog post content */
+  font-size: 1.3em;
+  color: dimgrey;
+}
+
+button {
+  font-size: 1.3em;
+  padding: 10px;
+  border: 2px solid #535EAA;
+  color: #828aba;
+  background-color: transparent;
+  
+  transition: background-color .5s ease;
+}
+
+button:hover {
+  border: 3px solid #535EAA;
+  background-color: #535EAA;
+  color: white;
+
+  cursor: pointer;
 }
