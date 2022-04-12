@@ -1,6 +1,10 @@
 body {
   margin: 0; /* eliminate space between edge of browser and content */
   height: 100vh;
+
+  /* display child elements side-by-side */
+  display: flex;
+  align-items: stretch;
 }
 
 .header-link {
@@ -8,15 +12,21 @@ body {
   font-size: 1.5em;
 }
 
-#header {
-    color: #B7BBDA;
+h1 {
+  color: #A1B1EB;
+}
 
+h2 {
+  color: #535EAA;
+}
+
+#header {
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 30px;
     padding-right: 30px;
 
-    max-width: 300px;
+    width: 300px;
     min-height: 100%;
 
     display: flex;
@@ -24,4 +34,25 @@ body {
     justify-content:flex-start;
 
     background-color: black;
+}
+
+.cards-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.card {
+  padding: 30px;
+  min-width: 300px;
+}
+
+.card > p {
+  color: dimgrey;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 15px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow .5s ease;
 }
