@@ -18,22 +18,28 @@ h1 {
 
 h2 {
   color: #535EAA;
+  margin: 10px;
+}
+
+.stay { /* prevents div from moving while scrolling */
+  position: fixed;
 }
 
 #header {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
 
-    width: 300px;
-    min-height: 100%;
+  min-width: 300px;
+  height: 100%;
+  /* min-height: 100vh; */
 
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
 
-    background-color: black;
+  background-color: black;
 }
 
 .content-container { /* body of page's main content */
@@ -44,6 +50,8 @@ h2 {
 }
 
 .cards-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {
@@ -100,6 +108,19 @@ button:hover {
 
 p {
   font-size: 1.3em;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #535EAA;
+  margin: 10px;
+}
+
+a:hover, a:active {
+  color: #A1B1EB;
 }
 
 .invalid-input-message {

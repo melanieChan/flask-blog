@@ -3,12 +3,14 @@
 {% block title %} Flask Blog {% endblock %}
 
 {% block content %}
+  <h1>Posts</h1>
   <div class="cards-container">
-    <h1>Posts</h1>
-    <div class="card">
-      <h2>Welcome</h2>
-      <p>Post</p>
-    </div>
+    {% for post in posts %}
+      <div class="card">
+        <a class="post-title-link" href="{{ url_for('post', post_id=post['id']) }}">{{ post['title'] }}</a>
+        <p>{{ post['content'] }}</p>
+      </div>
+    {% endfor %}
 
     <!-- input form for creating a new post -->
     <form class="card" method="post">

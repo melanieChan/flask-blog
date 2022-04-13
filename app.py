@@ -7,7 +7,8 @@ app.config['SECRET_KEY'] = 'secret_key'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = get_posts()
+    return render_template('index.html', posts=posts)
 
 # every post has its own link, made using its unique post_id
 @app.route('/<int:post_id>')
@@ -30,6 +31,17 @@ def get_post(post_id):
     if post is None:
         abort(404)
     return post
+
+# retrieve all posts from db
+def get_posts():
+    connection = get_db_connection()
+    posts = connection.execute('SELECT * FROM posts').fetchall()
+    connection.close()
+    print(posts)
+
+    if posts is None:
+        return []
+    return posts
 
 # gets user's inputs for a new post and saves it as an entry in the posts table
 @app.route('/', methods=('GET', 'POST'))
