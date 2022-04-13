@@ -36,11 +36,14 @@ h2 {
     background-color: black;
 }
 
-.cards-container {
+.content-container { /* body of page's main content */
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.cards-container {
 }
 
 .card {
@@ -93,4 +96,8 @@ button:hover {
   color: white;
 
   cursor: pointer;
+}
+
+p {
+  font-size: 1.3em;
 }

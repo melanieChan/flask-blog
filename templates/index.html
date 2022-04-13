@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>Flask Blog</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-    <div id="header">
-      <h1>Welcome</h1>
-      <p class="header-link">Post</p>
+{% block title %} Flask Blog {% endblock %}
+
+{% block content %}
+  <div class="cards-container">
+    <h1>Posts</h1>
+    <div class="card">
+      <h2>Welcome</h2>
+      <p>Post</p>
     </div>
 
-    <div class="cards-container">
-      <h1>Posts</h1>
-      <div class="card">
-        <h2>Welcome</h2>
-        <p>Post</p>
-      </div>
-
-      <div class="card">
-        <input class="input-title" placeholder="New Title"></input>
-        <br/>
-        <textarea class="input-content" placeholder="New Post Content" rows="10"></textarea>
-        <br/>
-        <button>Post</button>
-      </div>
-
+    <div class="card">
+      <input class="input-title" placeholder="New Title"></input>
+      <br/>
+      <textarea class="input-content" placeholder="New Post Content" rows="10"></textarea>
+      <br/>
+      <button>Post</button>
     </div>
 
-  </body>
-</html>
+  </div>
+{% endblock %}

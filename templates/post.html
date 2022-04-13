@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- gets post's information from db by using post id from url -->
+    <h1>{% block title %} {{ post['title'] }} {% endblock %}</h1>
+    <p>{{ post['content'] }}</p>
+{% endblock %}

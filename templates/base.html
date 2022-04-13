@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+    <!-- can be reused for any page in app; includes sidebar and app's styling theme -->
+    <div id="header">
+      <h1>Welcome</h1>
+      <p class="header-link">Post</p>
+    </div>
+
+    <div class="content-container">
+      {% block content %} {% endblock %}
+    </div>
+
+  </body>
+</html>
