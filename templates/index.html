@@ -10,13 +10,25 @@
       <p>Post</p>
     </div>
 
-    <div class="card">
-      <input class="input-title" placeholder="New Title"></input>
+    <!-- input form for creating a new post -->
+    <form class="card" method="post">
+      {% for message in get_flashed_messages() %}
+          <div class="invalid-input-message">{{ message }}</div>
+      {% endfor %}
+
+      <!-- post title input -->
+      <input name="title" class="input-title" placeholder="New Title"
+        value="{{ request.form['title'] }}">
+      </input>
+
+      <!-- text content input -->
       <br/>
-      <textarea class="input-content" placeholder="New Post Content" rows="10"></textarea>
+      <textarea name="content" class="input-content"
+        rows="10" placeholder="New Post Content">{{ request.form['content'] }}</textarea>
       <br/>
+
       <button>Post</button>
-    </div>
+    </form>
 
   </div>
 {% endblock %}

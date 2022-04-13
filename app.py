@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 import sqlite3
 from werkzeug.exceptions import abort
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret_key'
 
 @app.route('/')
 def index():
@@ -29,3 +30,21 @@ def get_post(post_id):
     if post is None:
         abort(404)
     return post
+
+# gets user's inputs for a new post and saves it as an entry in the posts table
+@app.route('/', methods=('GET', 'POST'))
+def write_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+
+        if len(title) < 1:
+            flash('Please enter a valid title')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)',(title, content))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+
+    return render_template('index.html')

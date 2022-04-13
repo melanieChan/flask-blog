@@ -101,3 +101,9 @@ button:hover {
 p {
   font-size: 1.3em;
 }
+
+.invalid-input-message {
+  width: 100%;
+  color: salmon;
+  align-content: center;
+}
