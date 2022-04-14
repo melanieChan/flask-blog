@@ -5,11 +5,17 @@ body {
   /* display child elements side-by-side */
   display: flex;
   align-items: stretch;
+
+  font-family: verdana;
+}
+
+textarea {
+  font-family: verdana;
 }
 
 .header-link {
   color: white;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 h1 {
@@ -62,6 +68,10 @@ h2 {
   min-width: 300px;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .card > p {
   color: dimgrey;
 }
@@ -72,48 +82,62 @@ h2 {
 }
 
 input, textarea {
-  outline-color: #535EAA;
+  /* outline-color: #535EAA; */
+  outline: none;
   border: none;
   padding: 10px;
+}
+
+input:hover, textarea:hover {
+  background-color: whitesmoke;
 }
 
 input.input-title { /* user's input for name of new blog post */
   color: #535EAA;
   font-size: 1.3em;
   font-weight: bold;
+  font-family: verdana;
+}
+
+textarea {
+  width: calc(100% - 20px);
 }
 
 textarea.input-content { /* user's input for blog post content */
-  font-size: 1.3em;
+  font-size: 1em;
   color: dimgrey;
 }
 
 button {
-  font-size: 1.3em;
+  font-size: 1.2em;
   padding: 10px;
-  border: 2px solid #535EAA;
-  color: #828aba;
+  /* border: 2px solid #535EAA; */
+
+  color: #535EAA;
   background-color: transparent;
-  
-  transition: background-color .5s ease;
+  width: 100px;
+  transition: background-color .4s ease, width .5s ease;
+
+  border: none;
+  border-bottom: 3px solid #535EAA;
 }
 
 button:hover {
-  border: 3px solid #535EAA;
   background-color: #535EAA;
   color: white;
+  width: 100%;
 
   cursor: pointer;
 }
 
 p {
-  font-size: 1.3em;
+  font-size: 1em;
   margin: 10px;
 }
 
 a {
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: bold;
   color: #535EAA;
   margin: 10px;
