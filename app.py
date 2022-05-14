@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 import sqlite3
 from werkzeug.exceptions import abort
+import os
+from flask_utils import download_database
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -17,6 +19,15 @@ def post(post_id):
     return render_template('post.html', post=post)
 
 def get_db_connection():
+    dir_path = os.path.abspath(os.path.dirname(__file__)) # path of current file's directory
+
+    # check if there's a file named database.db
+    db_file_exists = os.path.isfile(os.path.join(dir_path, 'database.db'))
+
+    if not db_file_exists: # download the database if it doesn't already exist
+        download_database()
+
+    # connect to db
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
