@@ -15,3 +15,15 @@ def download_database():
         for chunk in request.iter_content(chunk_size=1024):
              if chunk:
                  db_file.write(chunk)
+
+def get_db_path():
+    dir_path = os.path.abspath(os.path.dirname(__file__)) # path of current file's directory
+
+    # check if there's a file named database.db
+    db_file_path = os.path.join(dir_path, 'database.db')
+    db_file_exists = os.path.isfile(db_file_path)
+
+    if not db_file_exists: # download the database if it doesn't already exist
+        download_database()
+
+    return db_file_path
