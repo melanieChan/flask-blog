@@ -5,7 +5,7 @@ local_path = os.path.abspath(os.path.dirname(__file__)) # finds project director
 
 # downloads a database file to the project directory
 def download_database():
-    file_url = "https://github.com/melanieChan/app-data/blob/flask-blog/database.db?raw=true"
+    file_url = "https://github.com/melanieChan/app-data/blob/flask-blog-sqlalchemy/database.db?raw=true"
 
     request = requests.get(file_url, stream = True) # get data
     download_destination = os.path.join(local_path, 'database.db') # set a path for the new file

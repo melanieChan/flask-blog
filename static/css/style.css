@@ -53,6 +53,8 @@ h2 {
   padding-bottom: 15px;
   padding-left: 30px;
   padding-right: 30px;
+
+  height: 100%;
 }
 
 .cards-container {
@@ -130,6 +132,12 @@ button:hover {
   cursor: pointer;
 }
 
+.fixed-btn {
+    min-width: 50px;
+    max-width: 300px;
+    width: 100%;
+}
+
 p {
   font-size: 1em;
   margin: 10px;
@@ -151,4 +159,11 @@ a:hover, a:active {
   width: 100%;
   color: salmon;
   align-content: center;
+}
+
+.post-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
 }

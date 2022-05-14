@@ -79,3 +79,13 @@ def write_post():
             return redirect(url_for('index'))
 
     return render_template('index.html')
+
+# delete a post
+@app.post('/<int:post_id>/delete/')
+def delete(post_id):
+    post_to_delete = Post.query.get_or_404(post_id)
+    db.session.delete(post_to_delete)
+    db.session.commit()
+
+    # go back to home page
+    return redirect(url_for('index'))
