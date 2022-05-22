@@ -9,10 +9,25 @@
     <!-- can be reused for any page in app; includes sidebar and app's styling theme -->
     <div id="header" class="stay">
       <a href="{{ url_for('index') }}"><h1>Flask Blog</h1></a>
-      <p class="header-link">View all posts on the homepage</p>
-      <p class="header-link">Create a post on the homepage</p>
-      <p class="header-link">View a specific post by clicking a post's title</p>
-      <p class="header-link">Edit or delete a post from its page</p>
+      <div class="header-link">
+        <p>On Homepage:</p>
+        <ul>
+          <li>View all posts</li>
+          <li>Create a post</li>
+        </ul>
+
+        <p>On any Post's page:</p>
+        <ul>
+          <p>View a specific post by clicking a post's title</p>
+          <li>Edit the post's title or content</li>
+          <li>Delete the post</li>
+        </ul>
+
+        <p>Notes:</p>
+        <ul>
+          <li>All posts will be seen by all users</li>
+        </ul>
+      </div>
     </div>
 
     <div class="content-container">
