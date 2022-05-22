@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit post {% endblock %}
+
+{% block content %}
+    <form class="post-page" method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="input-title"
+                  placeholder="{{ post.title }}"
+                   value="{{ request.form['title'] }}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea name="content" class="input-content" rows="10"
+                    placeholder="{{ post.content }}"
+                    >{{ request.form['content'] }}</textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="fixed-btn">update post</button>
+        </div>
+    </form>
+{% endblock %}

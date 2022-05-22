@@ -2,14 +2,47 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 import sqlite3
 from werkzeug.exceptions import abort
 import os
-from flask_utils import download_database
+from flask_utils import get_db_path
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
+
+# pipenv shell
+# export FLASK_APP=app
+# export FLASK_ENV=development
+# flask run
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 
+local_path = os.path.abspath(os.path.dirname(__file__))
+
+# database
+# adds db file to project directory
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+        'sqlite:///' + get_db_path()
+db = SQLAlchemy(app)
+
+# create db:
+# pipenv shell
+# flask shell
+# from app import db, Post
+# db.create_all()
+# db.drop_all()
+# parietal = Post(title='parietal lobe', content='sensory')
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    created = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
+    title = db.Column(db.Text)
+    content = db.Column(db.Text)
+
+    def __repr__(self):
+        return f'Post about {self.title}: {self.content} ({self.created})'
+
 @app.route('/')
 def index():
-    posts = get_posts()
+    posts = Post.query.all()
     return render_template('index.html', posts=posts)
 
 # every post has its own link, made using its unique post_id
@@ -18,41 +51,13 @@ def post(post_id):
     post = get_post(post_id)
     return render_template('post.html', post=post)
 
-def get_db_connection():
-    dir_path = os.path.abspath(os.path.dirname(__file__)) # path of current file's directory
-
-    # check if there's a file named database.db
-    db_file_exists = os.path.isfile(os.path.join(dir_path, 'database.db'))
-
-    if not db_file_exists: # download the database if it doesn't already exist
-        download_database()
-
-    # connect to db
-    connection = sqlite3.connect('database.db')
-    connection.row_factory = sqlite3.Row
-    return connection
-
 # find a post from db given its post_id
 def get_post(post_id):
-    connection = get_db_connection()
-    post = connection.execute('SELECT * FROM posts WHERE id = ?',(post_id,)).fetchone()
-    connection.close()
+    post = Post.query.filter_by(id=post_id).first()
 
-    # show 'Not Found' page if post doesn't exist
     if post is None:
         abort(404)
     return post
-
-# retrieve all posts from db
-def get_posts():
-    connection = get_db_connection()
-    posts = connection.execute('SELECT * FROM posts').fetchall()
-    connection.close()
-    print(posts)
-
-    if posts is None:
-        return []
-    return posts
 
 # gets user's inputs for a new post and saves it as an entry in the posts table
 @app.route('/', methods=('GET', 'POST'))
@@ -61,13 +66,48 @@ def write_post():
         title = request.form['title']
         content = request.form['content']
 
+        # any error will causes page to refresh and flash message will appear after refresh
         if len(title) < 1:
             flash('Please enter a valid title')
         else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)',(title, content))
-            conn.commit()
-            conn.close()
+            # get input and store it as a new post
+            new_post = Post(title=title, content=content)
+            db.session.add(new_post)
+            db.session.commit()
+
+            # go back to home page to see new post appended to list
             return redirect(url_for('index'))
 
     return render_template('index.html')
+
+# delete a post
+@app.post('/<int:post_id>/delete/')
+def delete(post_id):
+    post_to_delete = Post.query.get_or_404(post_id)
+    db.session.delete(post_to_delete)
+    db.session.commit()
+
+    # go back to home page
+    return redirect(url_for('index'))
+
+@app.route('/<int:post_id>/edit', methods=('GET', 'POST'))
+def edit(post_id):
+    post_to_edit = Post.query.get_or_404(post_id)
+
+    if request.method == 'POST':
+        # new input from user
+        new_title = request.form['title']
+        new_content = request.form['content']
+
+        # set data if inputs are nonempty
+        post_to_edit.title = new_title if new_title != '' else post_to_edit.title
+        post_to_edit.content = new_content if new_content != '' else post_to_edit.content
+
+        db.session.add(post_to_edit)
+        db.session.commit()
+
+        # go back to post's page
+        return redirect(url_for('post', post_id=post_to_edit.id))
+
+    # show edit page
+    return render_template('edit.html', post=post_to_edit)
