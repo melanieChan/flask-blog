@@ -4,19 +4,24 @@
   <div class="post-page">
       <!-- gets post's information from db by using post id from url -->
       <h1>{% block title %} {{ post['title'] }} {% endblock %}</h1>
-      <p>{{ post['content'] }}</p>
 
-      <button type="submit" value="edit post" class="fixed-btn"
-        onclick="location.href='/{{ post.id }}/edit';">edit post</button>
+      <div class="post-content-container">
+        <p>{{ post['content'] }}</p>
+      </div>
 
-      <!-- delete calls endpoint to delete post from db -->
-      <form method="POST" action="{{ url_for('delete', post_id=post.id) }}">
-          <button type="submit" value="delete post"
-              class="fixed-btn"
-              onclick="return confirm('Are you sure you want to delete this post?')">
-              delete post
-              </button>
-      </form>
+      <div class="action-buttons"> <!-- update and delete buttons -->
+        <button type="submit" value="edit post" class="fixed-btn"
+          onclick="location.href='/{{ post.id }}/edit';">edit post</button>
+
+        <!-- delete calls endpoint to delete post from db -->
+        <form method="POST" action="{{ url_for('delete', post_id=post.id) }}">
+            <button type="submit" value="delete post"
+                class="fixed-btn"
+                onclick="return confirm('Are you sure you want to delete this post?')">
+                delete post
+                </button>
+        </form>
+      </div>
     </div>
 
 {% endblock %}
