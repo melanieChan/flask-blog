@@ -43,6 +43,7 @@ h2 {
   padding-right: 30px;
 
   min-width: 300px;
+  max-width: 300px;
   height: calc(100% - calc(var(--padding-y) * 2)); /* full height - padding */
 
   display: flex;
@@ -174,6 +175,15 @@ a:hover, a:active {
   justify-content: space-between;
   gap: 20px;
   height: 100%;
+}
+
+.post-title-container { /* contains date and title */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .post-content-container {

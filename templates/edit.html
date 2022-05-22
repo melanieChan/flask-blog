@@ -5,14 +5,14 @@
 {% block content %}
     <form class="post-page" method="post">
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">New Title:</label>
             <input type="text" name="title" class="input-title"
                   placeholder="{{ post.title }}"
                    value="{{ request.form['title'] }}"/>
         </div>
 
         <div class="post-content-container">
-            <label for="content">Content</label>
+            <label for="content">New Content:</label>
             <textarea name="content" class="input-content" rows="10"
                     placeholder="{{ post.content }}"
                     >{{ request.form['content'] }}</textarea>
