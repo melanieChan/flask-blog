@@ -89,3 +89,25 @@ def delete(post_id):
 
     # go back to home page
     return redirect(url_for('index'))
+
+@app.route('/<int:post_id>/edit', methods=('GET', 'POST'))
+def edit(post_id):
+    post_to_edit = Post.query.get_or_404(post_id)
+
+    if request.method == 'POST':
+        # new input from user
+        new_title = request.form['title']
+        new_content = request.form['content']
+
+        # set data if inputs are nonempty
+        post_to_edit.title = new_title if new_title != '' else post_to_edit.title
+        post_to_edit.content = new_content if new_content != '' else post_to_edit.content
+
+        db.session.add(post_to_edit)
+        db.session.commit()
+
+        # go back to post's page
+        return redirect(url_for('post', post_id=post_to_edit.id))
+
+    # show edit page
+    return render_template('edit.html', post=post_to_edit)

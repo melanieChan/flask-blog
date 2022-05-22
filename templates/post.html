@@ -6,6 +6,9 @@
       <h1>{% block title %} {{ post['title'] }} {% endblock %}</h1>
       <p>{{ post['content'] }}</p>
 
+      <button type="submit" value="edit post" class="fixed-btn"
+        onclick="location.href='/{{ post.id }}/edit';">edit post</button>
+
       <!-- delete calls endpoint to delete post from db -->
       <form method="POST" action="{{ url_for('delete', post_id=post.id) }}">
           <button type="submit" value="delete post"
